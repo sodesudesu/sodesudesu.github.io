@@ -1,5 +1,0 @@
-* TO DO LIST at Lab
-
-** DONE thaw HUVEC p6
-** TODO change medium
-** TODO order syringe, beads

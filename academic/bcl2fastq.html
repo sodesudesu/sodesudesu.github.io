@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-02 Mon 12:41 -->
+<!-- 2026-02-02 Mon 15:52 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>How to install bcl2fastq</title>
@@ -21,8 +21,140 @@ Illumina bcl2fastq is a BCL-to-FASTQ conversion tool.
 For more details, <a href="https://jp.support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software.html">technical support page (?)</a>.
 </p>
 
-<div id="outline-container-orgf0e2364" class="outline-2">
-<h2 id="orgf0e2364">Method1: full compilation</h2>
+<div id="outline-container-org1cf2c88" class="outline-2">
+<h2 id="org1cf2c88">Method1: rpm to deb conversion</h2>
+<div class="outline-text-2" id="text-org1cf2c88">
+<p>
+This is the most easy way.
+</p>
+
+<p>
+illumina destributes only RPM package.
+<code>Alien</code> command convert <code>.rpm</code> to <code>.deb</code> and allow as to install bcl2fastq in Ubuntu.
+</p>
+</div>
+
+<div id="outline-container-org3cefec0" class="outline-3">
+<h3 id="org3cefec0">Step1</h3>
+<div class="outline-text-3" id="text-org3cefec0">
+<p>
+Install <code>alian</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-zsh">sudo apt install alien
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org60e485e" class="outline-3">
+<h3 id="org60e485e">Step2</h3>
+<div class="outline-text-3" id="text-org60e485e">
+<p>
+Cnvert RPM to DEB
+</p>
+
+<div class="org-src-container">
+<pre class="src src-zsh">sudo alien bcl2fastq2-v*.**.*.**-Linux-x86_64.rpm
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc62a5c4" class="outline-3">
+<h3 id="orgc62a5c4">Step3</h3>
+<div class="outline-text-3" id="text-orgc62a5c4">
+<p>
+Extract DEB file
+</p>
+
+<div class="org-src-container">
+<pre class="src src-zsh">sudo dpkg -i bcl2fastq2_0v*.**.*.**-*_amd64.deb
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4a50539" class="outline-2">
+<h2 id="org4a50539">Method2: full compilation</h2>
+<div class="outline-text-2" id="text-org4a50539">
+<p>
+Official document's description:
+</p>
+</div>
+
+<div id="outline-container-org116285b" class="outline-3">
+<h3 id="org116285b">Step1</h3>
+<div class="outline-text-3" id="text-org116285b">
+<p>
+Download source files from <a href="https://jp.support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software/documentation.html">https://jp.support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software/documentation.html</a>
+(illumina id registration are required)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2c2924d" class="outline-3">
+<h3 id="org2c2924d">Step2</h3>
+<div class="outline-text-3" id="text-org2c2924d">
+<p>
+Extract <code>.tar.gz</code> file
+</p>
+
+<div class="org-src-container">
+<pre class="src src-zsh">tar -xvzf bcl2fastq2-v*.**.x.tar.gz
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcb6183d" class="outline-3">
+<h3 id="orgcb6183d">Step3</h3>
+<div class="outline-text-3" id="text-orgcb6183d">
+<p>
+Make build directory and move there
+</p>
+
+<div class="org-src-container">
+<pre class="src src-zsh">mkdir ${BUILD}
+cd ${BUILD}
+</pre>
+</div>
+
+<p>
+Grant editing permission
+</p>
+
+<div class="org-src-container">
+<pre class="src src-zsh">chmod ugo+x ${SOURCE}/src/configure
+chmod ugo+x ${SOURCE}/src/cmake/bootstrap/installCmake.sh
+
+mkdir ${INSTALL_DIR}
+${SOURCE}/src/configure --prefix=${INSTALL_DIR}
+</pre>
+</div>
+
+<p>
+(<code>${SOURCE}</code>: path to extracted source code)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org220e89d" class="outline-3">
+<h3 id="org220e89d">Step4</h3>
+<div class="outline-text-3" id="text-org220e89d">
+<p>
+At the same place,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-zsh">make
+make install
+</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </body>

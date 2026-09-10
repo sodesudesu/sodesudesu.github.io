@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-10 Thu 11:52 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SSH のメモ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">SSH のメモ</h1>
+<p>
+<a href="../index.html">Home</a> / <a href="../small_talk.html">Small Talk</a> /
+</p>
+
+<p>
+fastq-screen が mac で使えなかったので、コマンドは wsl2 にインストールして mac 側から ssh 接続で実行して、しかもそれは mac 側に保存したファイルに対してということをする。
+</p>
+
+<p>
+頭悪すぎワロスorz
+</p>
+<div id="outline-container-org45d1021" class="outline-2">
+<h2 id="org45d1021">sshd の設定</h2>
+<div class="outline-text-2" id="text-org45d1021">
+<p>
+Windows PowerShell （管理者）で
+</p>
+<div class="org-src-container">
+<pre class="src src-powershell">Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+</pre>
+</div>
+<p>
+してインストールだ！
+起動するには
+</p>
+<div class="org-src-container">
+<pre class="src src-powershell">Start-Service sshd
+</pre>
+</div>
+<p>
+をパソコン電源入れるたびに打ち込まないといけないと思っていたのだけど、なぜかそんなことない。
+言われたらこれやればいいか。
+</p>
+</div>
+</div>
+<div id="outline-container-org927ed53" class="outline-2">
+<h2 id="org927ed53">あとは mac から優雅に</h2>
+<div class="outline-text-2" id="text-org927ed53">
+<p>
+mac のターミナルから
+</p>
+<div class="org-src-container">
+<pre class="src src-zsh">ssh username@IP
+</pre>
+</div>
+<p>
+でとりあえず一旦 Windows に入室して
+</p>
+<div class="org-src-container">
+<pre class="src src-powershell">wsl
+</pre>
+</div>
+<p>
+で Ubuntu に潜入する。
+直で Ubuntu に行くのは試したけどむずかった。
+</p>
+
+<p>
+mac にあるファイルを編集したいので、
+</p>
+<div class="org-src-container">
+<pre class="src src-zsh">sudo apt install sshfs
+mkdir -p ~/mac_files
+sshfs username@hostname:/Users/username ~/mac_files
+</pre>
+</div>
+<p>
+する。
+<code>username</code> は <code>whoami</code>, <code>hostname</code> は <code>hostname</code> コマンドで調べろバカ。
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>

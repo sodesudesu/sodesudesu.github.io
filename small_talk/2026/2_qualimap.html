@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-10 Thu 22:37 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Qualimap 初体験エピソード</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body { margin: 40px auto; padding: 0 24px; }</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Qualimap 初体験エピソード</h1>
+<p>
+<a href="../../index.html">Home</a> / <a href="../small_talk.html">Small Talk</a> /
+</p>
+
+<p>
+WSL2 でQualimap を動かす。
+</p>
+<div id="outline-container-orgb1936b7" class="outline-2">
+<h2 id="orgb1936b7">Qualimap と依存環境を準備</h2>
+<div class="outline-text-2" id="text-orgb1936b7">
+<p>
+<a href="http://qualimap.conesalab.org">公式サイト</a> の Download から qualimap<sub>v2.3.zip</sub> をダウンロードした。
+</p>
+
+<p>
+<a href="http://qualimap.conesalab.org/doc_html/intro.html#installing-qualimap-on-ubuntu">QualiMap Online User Manual</a> によると、Ubuntu にインストールするには
+</p>
+<blockquote>
+<p>
+Qualimap requires:
+</p>
+
+<p>
+JAVA runtime version 6 or above.
+</p>
+
+<p>
+R enviroment version 3.1 or above.
+</p>
+</blockquote>
+<p>
+らしいので、
+</p>
+<div class="org-src-container">
+<pre class="src src-zsh">sudo apt install openjdk-17-jre 
+sudo apt install r-base-core libxml2-dev libcurl4-openssl-dev
+</pre>
+</div>
+<p>
+やった。
+</p>
+</div>
+</div>
+<div id="outline-container-org7ca5bda" class="outline-2">
+<h2 id="org7ca5bda">実行したいのに</h2>
+<div class="outline-text-2" id="text-org7ca5bda">
+<p>
+起動スクリプトに Java 17 では使えないオプションが含まれていたので、
+</p>
+<div class="org-src-container">
+<pre class="src src-zsh">sed -i 's/ -XX:MaxPermSize=1024m//' ~/qualimap_v2.3/qualimap
+</pre>
+</div>
+<p>
+して消した。
+</p>
+
+<p>
+実行権限を贈呈してやる：
+</p>
+<div class="org-src-container">
+<pre class="src src-zsh">chmod +x ~/qualimap_v2.3/qualimap
+</pre>
+</div>
+
+<p>
+これで起動できるようになった。
+ふー。
+</p>
+</div>
+</div>
+<div id="outline-container-orge36a771" class="outline-2">
+<h2 id="orge36a771">BAM の QC やる</h2>
+<div class="outline-text-2" id="text-orge36a771">
+<p>
+BAM の QC やるには
+</p>
+<div class="org-src-container">
+<pre class="src src-zsh">~/qualimap_v2.3/qualimap bamqc -bam "hoge" -outdir "fuga"
+</pre>
+</div>
+<p>
+を実行する。
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
